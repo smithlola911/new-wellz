@@ -1,24 +1,30 @@
-"use client";
-import {
-  ArrowLeft,
-  Camera,
-  Mail,
-  Phone,
-  Shield,
-  LogOut,
-} from "lucide-react";
-import BottomNavigation from "@/components/dashboard/BottomNavigation";
-import Link from "next/link";
-import { useAuthStore } from "@/store/authStore";
-import { useRouter } from "next/navigation";
+'use client';
+import { ArrowLeft, Camera, Mail, Phone, Shield, LogOut } from 'lucide-react';
+import BottomNavigation from '@/components/dashboard/BottomNavigation';
+import Link from 'next/link';
+import { useAuthStore } from '@/store/authStore';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Profile = () => {
   const router = useRouter();
   const { logout, user } = useAuthStore();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  const _hasHydrated = useAuthStore(state => state._hasHydrated);
+
+  useEffect(() => {
+    if (_hasHydrated && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [_hasHydrated, isAuthenticated, router]);
+
+  if (!_hasHydrated || !isAuthenticated) {
+    return null;
+  }
 
   const handleSignOut = () => {
     logout();
-    router.push("/login");
+    router.push('/login');
   };
 
   if (!user) {
@@ -35,9 +41,9 @@ const Profile = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long'
     });
   };
 
@@ -46,10 +52,7 @@ const Profile = () => {
       <header className="px-5 pt-5 pb-6 animate-fade-up">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link
-              href="/more"
-              className="p-2 -ml-2 rounded-full hover:bg-[#da1b28] transition-colors"
-            >
+            <Link href="/more" className="p-2 -ml-2 rounded-full hover:bg-[#da1b28] transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-2xl font-bold text-foreground">Profile</h1>
@@ -60,9 +63,7 @@ const Profile = () => {
       <section className="px-5 mb-6 animate-fade-up stagger-1">
         <div className="flex flex-col items-center">
           <div className="relative mb-4">
-            <div className="w-24 h-24 rounded-full gradient-primary flex items-center justify-center text-white text-3xl font-bold">
-              {getInitials(user.firstName, user.lastName)}
-            </div>
+            <div className="w-24 h-24 rounded-full gradient-primary flex items-center justify-center text-white text-3xl font-bold">{getInitials(user.firstName, user.lastName)}</div>
             <button className="absolute bottom-0 right-0 p-2 rounded-full bg-white shadow-lg border border-gray-200">
               <Camera className="w-4 h-4" />
             </button>
@@ -74,9 +75,7 @@ const Profile = () => {
       </section>
 
       <section className="px-5 mb-6 animate-fade-up stagger-2">
-        <h2 className="text-sm font-medium text-gray-500 mb-3">
-          Personal Information
-        </h2>
+        <h2 className="text-sm font-medium text-gray-500 mb-3">Personal Information</h2>
         <div className="banking-card p-0! overflow-hidden divide-y divide-border">
           <div className="flex items-center gap-4 p-4">
             <div className="p-2.5 rounded-xl bg-[#da1b28]">
@@ -102,9 +101,7 @@ const Profile = () => {
       </section>
 
       <section className="px-5 mb-6 animate-fade-up stagger-3">
-        <h2 className="text-sm font-medium text-gray-500 mb-3">
-          Account Details
-        </h2>
+        <h2 className="text-sm font-medium text-gray-500 mb-3">Account Details</h2>
         <div className="banking-card space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-gray-500">Username</span>
@@ -112,21 +109,14 @@ const Profile = () => {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-gray-500">Member Since</span>
-            <span className="font-medium text-foreground">
-              {formatDate(user.createdAt)}
-            </span>
+            <span className="font-medium text-foreground">{formatDate(user.createdAt)}</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-gray-500">Account Status</span>
-            <span className="px-2 py-1 rounded-full bg-[#1fad53]/10 text-[#1fad53] text-sm font-medium">
-              Active
-            </span>
+            <span className="px-2 py-1 rounded-full bg-[#1fad53]/10 text-[#1fad53] text-sm font-medium">Active</span>
           </div>
         </div>
-        <button
-          onClick={handleSignOut}
-          className="w-full cursor-pointer mt-5 flex items-center justify-center gap-3 p-4 rounded-2xl bg-[#ef4343] text-white transition-colors hover:bg-[#ef4343]/90"
-        >
+        <button onClick={handleSignOut} className="w-full cursor-pointer mt-5 flex items-center justify-center gap-3 p-4 rounded-2xl bg-[#ef4343] text-white transition-colors hover:bg-[#ef4343]/90">
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Sign Out</span>
         </button>

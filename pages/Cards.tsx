@@ -4,9 +4,24 @@ import { ArrowLeft, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import BottomNavigation from '@/components/dashboard/BottomNavigation';
 import { useAuthStore } from '@/store/authStore';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Cards() {
   const { accounts } = useAuthStore();
+  const router = useRouter();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  const _hasHydrated = useAuthStore(state => state._hasHydrated);
+
+  useEffect(() => {
+    if (_hasHydrated && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [_hasHydrated, isAuthenticated, router]);
+
+  if (!_hasHydrated || !isAuthenticated) {
+    return null;
+  }
 
   // Get checking account balance
   const checkingAccount = accounts.find(acc => acc.type === 'checking');

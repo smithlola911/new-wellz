@@ -1,7 +1,7 @@
 // Transfer.tsx - Main component
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BottomNavigation from '@/components/dashboard/BottomNavigation';
 import { useAuthStore } from '@/store/authStore';
 import TransferForm from './TransferForm';
@@ -9,6 +9,7 @@ import TransferConfirmation from './TransferConfirmation';
 import TransactionCodeDialog from './TransactionCodeDialog';
 import TransferFailedDialog from './TransferFailedDialog';
 import { useTransferLogic } from '@/hooks/useTransferLogic';
+import { useRouter } from 'next/navigation';
 
 const Transfer = () => {
   const userAccounts = useAuthStore(state => state.accounts);
@@ -16,8 +17,21 @@ const Transfer = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showCodeVerification, setShowCodeVerification] = useState(false);
   const [codeVerificationProcessing, setCodeVerificationProcessing] = useState(false);
+  const router = useRouter();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  const _hasHydrated = useAuthStore(state => state._hasHydrated);
 
   const { state, handlers, validation, displayAccounts, selectedFromAccount, selectedBankInfo } = useTransferLogic(userAccounts);
+
+  useEffect(() => {
+    if (_hasHydrated && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [_hasHydrated, isAuthenticated, router]);
+
+  if (!_hasHydrated || !isAuthenticated) {
+    return null;
+  }
 
   const handleContinue = () => {
     if (validation.hasInsufficientFunds) {

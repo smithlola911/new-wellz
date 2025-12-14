@@ -1,28 +1,46 @@
-import { ArrowLeft, TrendingUp, TrendingDown, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import BottomNavigation from "@/components/dashboard/BottomNavigation";
+"use client"
+
+import { ArrowLeft, TrendingUp, TrendingDown, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import BottomNavigation from '@/components/dashboard/BottomNavigation';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/authStore';
+import { useEffect } from 'react';
 
 const spendingCategories = [
-  { name: "Food & Dining", amount: 842.50, percentage: 35, color: "bg-[#da1b28]" },
-  { name: "Shopping", amount: 456.20, percentage: 19, color: "bg-accent" },
-  { name: "Transportation", amount: 312.80, percentage: 13, color: "bg-[#1fad53]" },
-  { name: "Entertainment", amount: 245.00, percentage: 10, color: "bg-[#da1b28]/60" },
-  { name: "Utilities", amount: 198.50, percentage: 8, color: "bg-accent/60" },
-  { name: "Other", amount: 356.00, percentage: 15, color: "text-gray-500" },
+  { name: 'Food & Dining', amount: 842.5, percentage: 35, color: 'bg-[#da1b28]' },
+  { name: 'Shopping', amount: 456.2, percentage: 19, color: 'bg-accent' },
+  { name: 'Transportation', amount: 312.8, percentage: 13, color: 'bg-[#1fad53]' },
+  { name: 'Entertainment', amount: 245.0, percentage: 10, color: 'bg-[#da1b28]/60' },
+  { name: 'Utilities', amount: 198.5, percentage: 8, color: 'bg-accent/60' },
+  { name: 'Other', amount: 356.0, percentage: 15, color: 'text-gray-500' }
 ];
 
 const monthlyData = [
-  { month: "Jul", income: 6500, spending: 4200 },
-  { month: "Aug", income: 6500, spending: 3800 },
-  { month: "Sep", income: 7200, spending: 4500 },
-  { month: "Oct", income: 6500, spending: 4100 },
-  { month: "Nov", income: 6800, spending: 3900 },
-  { month: "Dec", income: 7500, spending: 2411 },
+  { month: 'Jul', income: 6500, spending: 4200 },
+  { month: 'Aug', income: 6500, spending: 3800 },
+  { month: 'Sep', income: 7200, spending: 4500 },
+  { month: 'Oct', income: 6500, spending: 4100 },
+  { month: 'Nov', income: 6800, spending: 3900 },
+  { month: 'Dec', income: 7500, spending: 2411 }
 ];
 
 const Insights = () => {
   const totalSpending = spendingCategories.reduce((sum, cat) => sum + cat.amount, 0);
-  const maxBarValue = Math.max(...monthlyData.map((d) => Math.max(d.income, d.spending)));
+  const maxBarValue = Math.max(...monthlyData.map(d => Math.max(d.income, d.spending)));
+  const router = useRouter();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  const _hasHydrated = useAuthStore(state => state._hasHydrated);
+
+  useEffect(() => {
+    if (_hasHydrated && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [_hasHydrated, isAuthenticated, router]);
+
+  if (!_hasHydrated || !isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background pb-28">
@@ -67,18 +85,10 @@ const Insights = () => {
             {monthlyData.map((data, index) => (
               <div key={data.month} className="flex-1 flex flex-col items-center gap-1">
                 <div className="w-full flex gap-0.5 h-28 items-end">
-                  <div
-                    className="flex-1 bg-[#1fad53]/20 rounded-t"
-                    style={{ height: `${(data.income / maxBarValue) * 100}%` }}
-                  />
-                  <div
-                    className="flex-1 bg-[#da1b28]/40 rounded-t"
-                    style={{ height: `${(data.spending / maxBarValue) * 100}%` }}
-                  />
+                  <div className="flex-1 bg-[#1fad53]/20 rounded-t" style={{ height: `${(data.income / maxBarValue) * 100}%` }} />
+                  <div className="flex-1 bg-[#da1b28]/40 rounded-t" style={{ height: `${(data.spending / maxBarValue) * 100}%` }} />
                 </div>
-                <span className={`text-xs ${index === monthlyData.length - 1 ? "font-semibold text-[#da1b28]" : "text-gray-500"}`}>
-                  {data.month}
-                </span>
+                <span className={`text-xs ${index === monthlyData.length - 1 ? 'font-semibold text-[#da1b28]' : 'text-gray-500'}`}>{data.month}</span>
               </div>
             ))}
           </div>
@@ -101,7 +111,7 @@ const Insights = () => {
           <span className="text-sm text-gray-500">December</span>
         </div>
         <div className="banking-card space-y-4">
-          {spendingCategories.map((category) => (
+          {spendingCategories.map(category => (
             <div key={category.name} className="flex items-center gap-3">
               <div className={`w-3 h-3 rounded-full ${category.color}`} />
               <div className="flex-1">
@@ -110,10 +120,7 @@ const Insights = () => {
                   <span className="text-sm font-semibold">${category.amount.toFixed(2)}</span>
                 </div>
                 <div className="h-1.5 bg-[#da1b28] rounded-full overflow-hidden">
-                  <div
-                    className={`h-full ${category.color} rounded-full transition-all`}
-                    style={{ width: `${category.percentage}%` }}
-                  />
+                  <div className={`h-full ${category.color} rounded-full transition-all`} style={{ width: `${category.percentage}%` }} />
                 </div>
               </div>
             </div>
