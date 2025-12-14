@@ -134,7 +134,7 @@ const Transfer = () => {
             <div className="flex justify-between items-center py-2 border-b border-gray-200">
               <span className="text-gray-500">To Bank</span>
               <div className="flex items-center gap-2">
-                <span className="text-lg">{selectedBankInfo?.logo}</span>
+                {/* <span className="text-lg">{selectedBankInfo?.logo}</span> */}
                 <span className="font-medium">{selectedBankInfo?.name}</span>
               </div>
             </div>
@@ -313,7 +313,7 @@ const Transfer = () => {
                 {banks.map((bank) => (
                   <SelectItem key={bank.id} value={bank.id} className="py-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-lg">{bank.logo}</span>
+                      {/* <span className="text-lg">{bank.logo}</span> */}
                       <span>{bank.name}</span>
                     </div>
                   </SelectItem>
