@@ -8,7 +8,7 @@ import TransferForm from './TransferForm';
 import TransferConfirmation from './TransferConfirmation';
 import TransactionCodeDialog from './TransactionCodeDialog';
 import TransferFailedDialog from './TransferFailedDialog';
-import { useTransferLogic } from './useTransferLogic';
+import { useTransferLogic } from '@/hooks/useTransferLogic';
 
 const Transfer = () => {
   const userAccounts = useAuthStore(state => state.accounts);
