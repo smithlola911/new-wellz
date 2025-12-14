@@ -3,32 +3,39 @@
 import { ArrowLeft, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import BottomNavigation from '@/components/dashboard/BottomNavigation';
-
-const cards = [
-  {
-    id: 1,
-    name: 'Everyday Checking',
-    type: 'Debit',
-    number: '4111 2222 3333 4444',
-    expiry: '12/26',
-    balance: 8547.32,
-    color: 'bg-foreground',
-    default: true
-  },
-  {
-    id: 2,
-    name: 'Active Cash Card',
-    type: 'Credit',
-    number: '5555 6666 7777 8888',
-    expiry: '09/27',
-    balance: 1245.8,
-    limit: 5000,
-    color: 'gradient-primary',
-    default: false
-  }
-];
+import { useAuthStore } from '@/store/authStore';
 
 export default function Cards() {
+  const { accounts } = useAuthStore();
+
+  // Get checking account balance
+  const checkingAccount = accounts.find(acc => acc.type === 'checking');
+  const checkingBalance = checkingAccount?.balance || 0;
+
+  const cards = [
+    {
+      id: 1,
+      name: 'Everyday Checking',
+      type: 'Debit',
+      number: '4111 2222 3333 4444',
+      expiry: '12/26',
+      balance: checkingBalance,
+      color: 'bg-foreground',
+      default: true
+    }
+    // {
+    //   id: 2,
+    //   name: 'Active Cash Card',
+    //   type: 'Credit',
+    //   number: '5555 6666 7777 8888',
+    //   expiry: '09/27',
+    //   balance: 1245.8,
+    //   limit: 5000,
+    //   color: 'gradient-primary',
+    //   default: false
+    // }
+  ];
+
   const formatCardNumber = (num: string) => {
     return '•••• •••• •••• ' + num.slice(-4);
   };

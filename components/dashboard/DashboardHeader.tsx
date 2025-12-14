@@ -29,10 +29,10 @@ export default function DashboardHeader() {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <Link
             href="/notifications"
-            className="relative p-2.5 rounded-full bg-white bg-white transition-shadow"
+            className="relative p-2.5 rounded-full bg-white transition-shadow"
           >
             <Bell className="w-5 h-5 text-foreground" />
             <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#da1b28] rounded-full border-2 border-card" />
@@ -40,11 +40,11 @@ export default function DashboardHeader() {
 
           <Link
             href="/profile"
-            className="p-2.5 rounded-full bg-white bg-white transition-shadow"
+            className="p-2.5 rounded-full bg-white transition-shadow"
           >
             <Settings className="w-5 h-5 text-foreground" />
           </Link>
-        </div>
+        </div> */}
       </div>
     </header>
   );
