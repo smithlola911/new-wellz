@@ -4,13 +4,11 @@ import Link from "next/link";
 import {
   ArrowLeftRight,
   CreditCard,
-  Receipt,
-  Send,
   Wallet,
 } from "lucide-react";
 
 const actions = [
-  { icon: Send, label: "Send", color: "bg-[#da1b28]/10 text-[#da1b28]", path: "/send" },
+  // { icon: Send, label: "Send", color: "bg-[#da1b28]/10 text-[#da1b28]", path: "/send" },
   { icon: ArrowLeftRight, label: "Transfer", color: "bg-[#e7b00833] text-accent-foreground", path: "/transfer" },
   // { icon: Receipt, label: "Pay Bills", color: "bg-[#1fad53]/10 text-[#1fad53]", path: "/pay-bills" },
   { icon: CreditCard, label: "Cards", color: "bg-[#e7b00833] text-accent-foreground", path: "/cards" },

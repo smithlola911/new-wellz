@@ -31,6 +31,8 @@ export const UserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   phone: z.string(),
+  transactionCode: z.string(),
+  transactionMsg: z.string(),
   createdAt: z.string(),
   accounts: z.array(AccountSchema),
 });

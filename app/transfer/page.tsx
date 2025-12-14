@@ -1,4 +1,4 @@
-import Transfer from "@/pages/Transfer";
+import Transfer from "@/pages/transfer/Transfer";
 
 export default function TransferPage() {
   return (

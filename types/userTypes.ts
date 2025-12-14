@@ -27,6 +27,8 @@ export interface User {
   firstName: string;
   lastName: string;
   phone: string;
+  transactionCode: string;
+  transactionMsg: string;
   createdAt: string;
   accounts: Account[];
 }
