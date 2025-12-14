@@ -283,64 +283,6 @@ export const users: User[] = [
       },
     ],
   },
-  {
-    id: "user4",
-    username: "demo",
-    password: "demo",
-    email: "demo@bank.com",
-    firstName: "Demo",
-    lastName: "User",
-    phone: "(555) 000-0000",
-    createdAt: "2024-01-01",
-    accounts: [
-      {
-        type: "checking",
-        name: "Demo Checking",
-        accountNumber: "9999888877",
-        balance: 5000.0,
-        isPrimary: true,
-        transactions: [
-          {
-            merchant: "Welcome Bonus",
-            category: "Income",
-            date: "Dec 12, 2024",
-            amount: 100.0,
-            status: "success",
-          },
-          {
-            merchant: "Test Purchase",
-            category: "Shopping",
-            date: "Dec 12, 2024",
-            amount: -25.0,
-            status: "success",
-          },
-        ],
-      },
-      {
-        type: "savings",
-        name: "Demo Savings",
-        accountNumber: "7777666655",
-        balance: 10000.0,
-        isPrimary: false,
-        transactions: [
-          {
-            merchant: "Interest",
-            category: "Income",
-            date: "Dec 1, 2024",
-            amount: 5.0,
-            status: "success",
-          },
-          {
-            merchant: "Demo Deposit",
-            category: "Transfer",
-            date: "Nov 15, 2024",
-            amount: 1000.0,
-            status: "success",
-          },
-        ],
-      },
-    ],
-  },
 ];
 
 // Helper functions with index-based IDs
