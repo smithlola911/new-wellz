@@ -44,7 +44,7 @@ const AccountsCarousel = () => {
               name={account.name}
               accountNumber={account.accountNumber}
               balance={account.balance}
-              available={account.available}
+              // available={account.available}
               isPrimary={account.isPrimary}
             />
           </div>
