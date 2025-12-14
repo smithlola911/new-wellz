@@ -153,7 +153,7 @@ export default function Login() {
           </div>
 
           {/* Demo Credentials */}
-          <div className="mt-4 p-4 bg-[#e7b00833] rounded-xl border border-accent/30">
+          <div className="mt-4 p-4 bg-[#e7b00833] hidden rounded-xl border border-accent/30">
             <p className="text-xs font-medium text-foreground mb-2">
               Demo Credentials:
             </p>

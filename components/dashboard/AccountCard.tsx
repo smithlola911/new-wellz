@@ -69,9 +69,9 @@ const AccountCard = ({ type, name, accountNumber, balance, available, isPrimary 
             </p>
           </div>
         )}
-        <button className={`p-2 rounded-full ${chevronBg} ml-2`}>
+        {/* <button className={`p-2 rounded-full ${chevronBg} ml-2`}>
           <ChevronRight className="w-4 h-4" />
-        </button>
+        </button> */}
       </div>
     </div>
   );
