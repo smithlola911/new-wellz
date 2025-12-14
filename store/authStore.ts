@@ -5,14 +5,13 @@ import {
   getUserByCredentials,
   getAccountsByUserId,
   getTransactionsByUserId,
-  getBankById,
 } from "@/lib/mockData";
 
 interface AuthState {
-  user: User | null;
+  user: (User & { id: string }) | null;
   bank: Bank | null;
-  accounts: Account[];
-  transactions: Transaction[];
+  accounts: (Account & { id: string })[];
+  transactions: (Transaction & { id: string; accountId: string })[];
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
@@ -45,11 +44,10 @@ export const useAuthStore = create<AuthState>()(
         if (user) {
           const userAccounts = getAccountsByUserId(user.id);
           const userTransactions = getTransactionsByUserId(user.id);
-          const userBank = getBankById(user.bankId);
           
           set({
             user,
-            bank: userBank || null,
+            bank: null,
             accounts: userAccounts,
             transactions: userTransactions,
             isAuthenticated: true,

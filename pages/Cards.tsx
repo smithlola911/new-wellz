@@ -117,7 +117,7 @@ export default function Cards() {
               <div className="flex gap-2">
                 <button
                   onClick={() => toggleNumber(card.id)}
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white bg-white transition-all text-sm font-medium"
+                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white transition-all text-sm font-medium"
                 >
                   {showNumbers[card.id] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   {showNumbers[card.id] ? "Hide" : "Show"}
@@ -127,7 +127,7 @@ export default function Cards() {
                   className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-xl transition-all text-sm font-medium ${
                     frozenCards[card.id]
                       ? "bg-[#da1b28] text-[#da1b28]-foreground"
-                      : "bg-white bg-white"
+                      : "bg-white"
                   }`}
                 >
                   {frozenCards[card.id] ? <Unlock className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
