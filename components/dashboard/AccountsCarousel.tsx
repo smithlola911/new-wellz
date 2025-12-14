@@ -38,7 +38,7 @@ const AccountsCarousel = () => {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {accounts.map((account) => (
-          <div key={account.id} className="snap-start shrink-0">
+          <div key={account.id} className="snap-start shrink-0 pl-5">
             <AccountCard
               type={account.type}
               name={account.name}
